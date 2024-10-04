@@ -3,6 +3,7 @@ package ma.amarghad.accountservice.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.amarghad.accountservice.enums.AccountType;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Data
+@Data @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account {
