@@ -20,6 +20,6 @@ public class Account {
     @Id @UuidGenerator(style = UuidGenerator.Style.TIME)
     private String id;
     private AccountType type;
-    private BigDecimal balance;
+    private Double balance;
     private Date createdAt;
 }
