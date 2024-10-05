@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Bean;
 import java.util.Date;
 
 @SpringBootApplication
-public class CompteServiceApplication {
+public class AccountServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CompteServiceApplication.class, args);
+        SpringApplication.run(AccountServiceApplication.class, args);
     }
 
     @Bean
