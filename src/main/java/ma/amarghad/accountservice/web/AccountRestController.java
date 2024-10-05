@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("accounts")
+@RequestMapping("accounts-rs")
 public class AccountRestController {
 
     private AccountRepository accountRepository;
