@@ -1,37 +1,42 @@
 package ma.amarghad.accountservice.web;
 
 import lombok.AllArgsConstructor;
-import ma.amarghad.accountservice.entities.Account;
-import ma.amarghad.accountservice.repository.AccountRepository;
+import ma.amarghad.accountservice.dtos.AccountDto;
+import ma.amarghad.accountservice.dtos.AccountInputDto;
+import ma.amarghad.accountservice.enums.AccountType;
+import ma.amarghad.accountservice.service.AccountService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("accounts-rs")
 public class AccountRestController {
 
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     @GetMapping
-    public List<Account> getAccounts() {
-        return accountRepository.findAll();
+    public PagedModel<AccountDto> getAccounts(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return new PagedModel<>(accountService.getAllAccounts(pageRequest));
     }
 
     @PostMapping
-    public Account saveAccount(@RequestBody Account Account) {
-        return accountRepository.save(Account);
+    public AccountDto saveAccount(@RequestBody AccountInputDto body) {
+        return accountService.addAccount(body.getType(), body.getBalance());
     }
 
     @GetMapping("/{id}")
-    public Account getAccountById(@PathVariable String id) {
-        return accountRepository.findById(id).orElse(null);
+    public AccountDto getAccountById(@PathVariable String id) {
+        return accountService.getAccount(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteAccount(@PathVariable String id) {
-        accountRepository.deleteById(id);
+        accountService.deleteAccount(id);
     }
 }
 
