@@ -1,0 +1,33 @@
+type Query {
+  accounts(page: Int = 0, size: Int = 10): AccountPage!
+  accountById(id: ID!): AccountDto!
+}
+
+type Mutation {
+  saveAccount(type: AccountType!, balance: Float!): AccountDto!
+  deleteAccount(id: ID!): Boolean!
+}
+
+type Page {
+  size: Int
+  number: Int
+  totalElements: Int
+  totalPages: Int
+}
+
+type AccountDto {
+  id: ID!
+  type: AccountType!
+  balance: Float!
+  createdAt: String!
+}
+
+enum AccountType {
+  SAVING_ACCOUNT,
+  CURRENT_ACCOUNT,
+}
+
+type AccountPage {
+  content: [AccountDto!]!
+  page: Page!
+}
