@@ -4,13 +4,14 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import ma.amarghad.accountservice.dtos.AccountDto;
 import ma.amarghad.accountservice.entities.Account;
+import ma.amarghad.accountservice.enums.AccountType;
 import ma.amarghad.accountservice.mappers.AccountMapper;
 import ma.amarghad.accountservice.repository.AccountRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Date;
 
 @Service
 @AllArgsConstructor
@@ -20,8 +21,12 @@ public class RepositoryAccountService implements AccountService {
     private AccountMapper accountMapper;
 
     @Override
-    public AccountDto addAccount(AccountDto accountDto) {
-        Account account = accountMapper.toEntity(accountDto);
+    public AccountDto addAccount(AccountType type, Double balance) {
+        Account account = Account.builder()
+                .type(type)
+                .balance(balance)
+                .createdAt(new Date())
+                .build();
         return accountMapper.toDto(
                 accountRepository.save(account)
         );
